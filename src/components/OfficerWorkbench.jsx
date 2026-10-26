@@ -105,6 +105,19 @@ export default function OfficerWorkbench({
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       
+      {/* Simple English Explanatory Notice for Evaluators & Visitors */}
+      <div className="mb-6 p-4 rounded-xl bg-crest-navy/5 border border-crest-navy/20 flex items-start gap-3 text-xs text-institutional-800">
+        <Shield className="w-5 h-5 text-crest-maroon shrink-0 mt-0.5" />
+        <div>
+          <strong className="block text-crest-navy text-sm font-serif">
+            Officer & Committee Administration Desk
+          </strong>
+          <p className="mt-0.5 text-institutional-600 leading-relaxed">
+            This is the restricted workbench where University Deans, the Controller of Examinations, and the Chief Warden manage complaints. <strong>Try switching officer personas below</strong> to test how each authority reviews petitions, schedules hearings, and issues digitally signed resolution decrees.
+          </p>
+        </div>
+      </div>
+
       {/* Officer Desk Header & Role Switcher */}
       <div className="bg-crest-deep text-white p-6 rounded-2xl border border-crest-gold/30 shadow-elevated mb-8">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
@@ -131,10 +144,10 @@ export default function OfficerWorkbench({
             </div>
           </div>
 
-          {/* Role Switcher Dropdown */}
+          {/* Role Switcher Dropdown with Plain English Label */}
           <div className="bg-white/10 p-3 rounded-xl border border-white/15 w-full lg:w-auto">
-            <label className="block text-[11px] text-institutional-300 font-semibold uppercase tracking-wider mb-1">
-              Switch Officer / Committee Persona:
+            <label className="block text-[11px] text-crest-goldLight font-bold uppercase tracking-wider mb-1">
+              Switch Authority Persona (Demo):
             </label>
             <select
               value={selectedOfficer.id}

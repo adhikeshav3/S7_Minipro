@@ -141,11 +141,11 @@ export default function GrievanceTracker({
         <div className="bg-crest-navy text-white p-6 sm:p-7 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-crest-gold/30">
           <div>
             <div className="flex items-center gap-2.5 flex-wrap">
-              <span className="font-mono text-xs sm:text-sm font-bold text-crest-goldLight bg-white/10 px-3 py-1 rounded border border-white/20">
-                DOCKET: {activeGrievance.id}
+              <span className="font-mono text-xs sm:text-sm font-bold text-crest-goldLight bg-white/10 px-3 py-1 rounded border border-white/20" title="Your unique complaint tracking number">
+                DOCKET ID: {activeGrievance.id}
               </span>
-              <span className="text-xs text-institutional-300 bg-black/20 px-2 py-0.5 rounded font-mono">
-                PIN: {activeGrievance.trackingPin}
+              <span className="text-xs text-institutional-300 bg-black/20 px-2 py-0.5 rounded font-mono" title="Keep this PIN secret to verify your identity">
+                SECRET PIN: {activeGrievance.trackingPin}
               </span>
               <span className={`text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider ${
                 activeGrievance.status === 'Resolved'
@@ -156,7 +156,7 @@ export default function GrievanceTracker({
                   ? 'bg-purple-700 text-white'
                   : 'bg-blue-600 text-white'
               }`}>
-                {activeGrievance.status}
+                STATUS: {activeGrievance.status}
               </span>
             </div>
 
@@ -228,13 +228,13 @@ export default function GrievanceTracker({
           </div>
         </div>
 
-        {/* Tab Navigation */}
+        {/* Tab Navigation with Clear Simple English Labels */}
         <div className="border-b border-institutional-200 px-6 flex items-center gap-2 overflow-x-auto bg-white">
           {[
-            { id: 'summary', label: 'Case Dossier & Statement', icon: FileText },
-            { id: 'triage', label: 'Policy Triage & Jurisprudence', icon: Scale },
-            { id: 'evidence', label: `Attached Proofs (${activeGrievance.attachments.length})`, icon: Download },
-            { id: 'timeline', label: `Audit Trail (${activeGrievance.timeline.length})`, icon: Clock }
+            { id: 'summary', label: 'Case Details (Full Story)', icon: FileText },
+            { id: 'triage', label: 'Policy Triage (How System Evaluated)', icon: Scale },
+            { id: 'evidence', label: `Attached Proofs (${activeGrievance.attachments.length} Files)`, icon: Download },
+            { id: 'timeline', label: `Audit Trail (History Log)`, icon: Clock }
           ].map(tab => {
             const Icon = tab.icon;
             return (
@@ -468,9 +468,10 @@ export default function GrievanceTracker({
                 type="button"
                 onClick={() => onViewOrder(activeGrievance)}
                 className="px-4 py-2 bg-crest-navy hover:bg-crest-blue text-white rounded-lg text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center gap-1.5"
+                title="View and print the official signed university legal resolution order with seals"
               >
                 <FileText className="w-4 h-4 text-crest-goldLight" />
-                View Certified Resolution Order
+                <span>View Official Legal Order (PDF)</span>
               </button>
             )}
 
@@ -480,9 +481,10 @@ export default function GrievanceTracker({
                 type="button"
                 onClick={() => onOpenFeedback(activeGrievance)}
                 className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center gap-1.5"
+                title="Confirm the university solved your problem and submit a 1 to 5 star rating"
               >
                 <CheckCircle2 className="w-4 h-4" />
-                Mark Resolved & Review
+                <span>Confirm Fixed & Rate (1-5★)</span>
               </button>
             )}
 
@@ -492,9 +494,10 @@ export default function GrievanceTracker({
                 type="button"
                 onClick={() => onOpenAppeal(activeGrievance)}
                 className="px-4 py-2 bg-white hover:bg-institutional-100 text-institutional-800 border border-institutional-300 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5"
+                title="Unhappy with the decision? Escalate your case directly to the Independent University Ombudsperson"
               >
                 <Scale className="w-4 h-4 text-crest-maroon" />
-                Lodge Appeal to Ombudsperson
+                <span>Unhappy? Appeal to Ombudsperson</span>
               </button>
             )}
           </div>

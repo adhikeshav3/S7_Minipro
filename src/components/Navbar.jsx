@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Building, FileText, Search, BookOpen, BarChart3, Lock, CheckCircle2, PhoneCall } from 'lucide-react';
+import { Shield, Building, FileText, Search, BookOpen, BarChart3, Lock, CheckCircle2, PhoneCall, HelpCircle } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab, pendingCount = 0 }) {
   return (
@@ -34,13 +34,12 @@ export default function Navbar({ activeTab, setActiveTab, pendingCount = 0 }) {
         <div 
           onClick={() => setActiveTab('home')}
           className="flex items-center gap-3.5 cursor-pointer group"
+          title="Click to return to homepage"
         >
           {/* Institutional Crest SVG Emblem */}
           <div className="w-12 h-12 rounded-lg bg-crest-navy text-crest-goldLight flex items-center justify-center shadow-seal border border-crest-gold/30 p-2 group-hover:border-crest-gold transition-colors">
             <svg viewBox="0 0 48 48" fill="none" className="w-full h-full text-current">
-              {/* Laurel Wreath */}
               <circle cx="24" cy="24" r="21" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2" />
-              {/* University Temple / Scales of Justice */}
               <path d="M24 7L10 14V17H38V14L24 7Z" fill="currentColor" opacity="0.9" />
               <rect x="13" y="19" width="3" height="13" rx="0.5" fill="currentColor" />
               <rect x="20" y="19" width="3" height="13" rx="0.5" fill="currentColor" />
@@ -66,84 +65,114 @@ export default function Navbar({ activeTab, setActiveTab, pendingCount = 0 }) {
           </div>
         </div>
 
-        {/* Primary Navigation Tabs */}
-        <nav className="flex items-center flex-wrap justify-center gap-1 sm:gap-1.5">
+        {/* Primary Navigation Tabs with Clear Sub-Labels */}
+        <nav className="flex items-center flex-wrap justify-center gap-1 sm:gap-2">
           <button
             onClick={() => setActiveTab('home')}
-            className={`px-3 py-2 rounded-md text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex flex-col items-center leading-tight ${
               activeTab === 'home'
                 ? 'bg-crest-navy text-white shadow-sm'
                 : 'text-institutional-700 hover:bg-institutional-100'
             }`}
           >
-            <Building className="w-4 h-4" />
-            Overview
+            <span className="flex items-center gap-1.5 font-bold">
+              <Building className="w-4 h-4" />
+              Overview
+            </span>
+            <span className={`text-[10px] font-normal ${activeTab === 'home' ? 'text-institutional-300' : 'text-institutional-400'}`}>
+              Home
+            </span>
           </button>
 
           <button
             onClick={() => setActiveTab('submit')}
-            className={`px-3.5 py-2 rounded-md text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex flex-col items-center leading-tight ${
               activeTab === 'submit'
                 ? 'bg-crest-navy text-white shadow-sm'
                 : 'bg-crest-gold/15 text-institutional-900 border border-crest-gold/40 hover:bg-crest-gold/25'
             }`}
           >
-            <FileText className="w-4 h-4 text-crest-goldDark" />
-            Lodge Grievance
+            <span className="flex items-center gap-1.5 font-bold">
+              <FileText className="w-4 h-4 text-crest-goldDark" />
+              Lodge Grievance
+            </span>
+            <span className={`text-[10px] font-normal ${activeTab === 'submit' ? 'text-institutional-300' : 'text-institutional-600'}`}>
+              File Complaint
+            </span>
           </button>
 
           <button
             onClick={() => setActiveTab('track')}
-            className={`px-3 py-2 rounded-md text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex flex-col items-center leading-tight ${
               activeTab === 'track'
                 ? 'bg-crest-navy text-white shadow-sm'
                 : 'text-institutional-700 hover:bg-institutional-100'
             }`}
           >
-            <Search className="w-4 h-4" />
-            Track Docket
+            <span className="flex items-center gap-1.5 font-bold">
+              <Search className="w-4 h-4" />
+              Track Docket
+            </span>
+            <span className={`text-[10px] font-normal ${activeTab === 'track' ? 'text-institutional-300' : 'text-institutional-400'}`}>
+              Check Status
+            </span>
           </button>
 
           <button
             onClick={() => setActiveTab('policies')}
-            className={`px-3 py-2 rounded-md text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex flex-col items-center leading-tight ${
               activeTab === 'policies'
                 ? 'bg-crest-navy text-white shadow-sm'
                 : 'text-institutional-700 hover:bg-institutional-100'
             }`}
           >
-            <BookOpen className="w-4 h-4" />
-            Charter & Bylaws
+            <span className="flex items-center gap-1.5 font-bold">
+              <BookOpen className="w-4 h-4" />
+              Charter & Bylaws
+            </span>
+            <span className={`text-[10px] font-normal ${activeTab === 'policies' ? 'text-institutional-300' : 'text-institutional-400'}`}>
+              Student Rights
+            </span>
           </button>
 
           <button
             onClick={() => setActiveTab('analytics')}
-            className={`px-3 py-2 rounded-md text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex flex-col items-center leading-tight ${
               activeTab === 'analytics'
                 ? 'bg-crest-navy text-white shadow-sm'
                 : 'text-institutional-700 hover:bg-institutional-100'
             }`}
           >
-            <BarChart3 className="w-4 h-4" />
-            Transparency
+            <span className="flex items-center gap-1.5 font-bold">
+              <BarChart3 className="w-4 h-4" />
+              Transparency
+            </span>
+            <span className={`text-[10px] font-normal ${activeTab === 'analytics' ? 'text-institutional-300' : 'text-institutional-400'}`}>
+              Live Stats
+            </span>
           </button>
 
           {/* Committee / Officer Desk Toggle */}
           <button
             onClick={() => setActiveTab('workbench')}
-            className={`ml-2 px-3 py-2 rounded-md text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 border ${
+            className={`ml-1 sm:ml-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex flex-col items-center leading-tight border ${
               activeTab === 'workbench'
                 ? 'bg-crest-maroon text-white border-crest-maroon shadow-sm'
                 : 'bg-institutional-50 text-institutional-800 border-institutional-300 hover:bg-institutional-200'
             }`}
           >
-            <Lock className="w-3.5 h-3.5 text-crest-maroon" />
-            Officer Desk
-            {pendingCount > 0 && (
-              <span className="ml-1 px-1.5 py-0.2 bg-red-600 text-white rounded-full text-[10px] font-bold">
-                {pendingCount}
-              </span>
-            )}
+            <span className="flex items-center gap-1.5 font-bold">
+              <Lock className="w-3.5 h-3.5 text-crest-maroon" />
+              Officer Desk
+              {pendingCount > 0 && (
+                <span className="ml-1 px-1.5 py-0.2 bg-red-600 text-white rounded-full text-[10px] font-bold">
+                  {pendingCount}
+                </span>
+              )}
+            </span>
+            <span className={`text-[10px] font-normal ${activeTab === 'workbench' ? 'text-institutional-200' : 'text-institutional-500'}`}>
+              For Deans / Admin
+            </span>
           </button>
         </nav>
       </div>

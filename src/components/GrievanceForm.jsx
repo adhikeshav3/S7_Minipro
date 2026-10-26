@@ -218,21 +218,29 @@ export default function GrievanceForm({ onSubmitGrievance, onTrackGrievance }) {
           Formal Student Grievance Lodging Form
         </h2>
         <p className="text-sm text-institutional-600 mt-1">
-          Registered under UGC (Redressal of Grievances of Students) Regulations, 2023. Dockets receive automated statutory triage and legal turnaround deadlines.
+          File an official complaint in 5 easy steps. You will get a <strong>Docket Tracking ID</strong> and a <strong>Secret PIN</strong> immediately upon submission.
         </p>
+
+        {/* Plain English Guide Banner */}
+        <div className="mt-3 p-3 rounded-lg bg-crest-navy/5 border border-crest-navy/15 flex items-center gap-2.5 text-xs text-institutional-700">
+          <HelpCircle className="w-4 h-4 text-crest-goldDark shrink-0" />
+          <span>
+            <strong>How this works:</strong> Fill your details, state your problem, and attach proof. Our automated policy engine routes your petition directly to the responsible Dean with a guaranteed turnaround deadline (24 to 48 hours for urgent issues).
+          </span>
+        </div>
       </div>
 
-      {/* 5-Step Process Bar */}
+      {/* 5-Step Process Bar with Clear Plain English Sub-labels */}
       <div className="mb-8 bg-white p-4 rounded-xl border border-institutional-200 shadow-sm">
         <div className="flex items-center justify-between max-w-2xl mx-auto relative">
           <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-institutional-200 -translate-y-1/2 -z-0" />
           
           {[
-            { num: 1, label: 'Identity' },
-            { num: 2, label: 'Particulars' },
-            { num: 3, label: 'Statement' },
-            { num: 4, label: 'Evidence' },
-            { num: 5, label: 'Verification' }
+            { num: 1, label: '1. Identity', sub: 'Who are you' },
+            { num: 2, label: '2. Category', sub: 'What issue' },
+            { num: 3, label: '3. Statement', sub: 'What happened' },
+            { num: 4, label: '4. Evidence', sub: 'Attach proof' },
+            { num: 5, label: '5. Verify', sub: 'Review & submit' }
           ].map((s) => (
             <div key={s.num} className="relative z-10 flex flex-col items-center">
               <div 
@@ -246,10 +254,13 @@ export default function GrievanceForm({ onSubmitGrievance, onTrackGrievance }) {
               >
                 {step > s.num ? <CheckCircle2 className="w-5 h-5" /> : s.num}
               </div>
-              <span className={`text-[11px] mt-1.5 font-medium ${
-                step === s.num ? 'text-crest-navy font-bold' : 'text-institutional-500'
+              <span className={`text-[11px] mt-1.5 font-bold ${
+                step === s.num ? 'text-crest-navy' : 'text-institutional-700'
               }`}>
                 {s.label}
+              </span>
+              <span className="text-[10px] text-institutional-400 hidden sm:block">
+                {s.sub}
               </span>
             </div>
           ))}
