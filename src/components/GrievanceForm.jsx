@@ -193,23 +193,28 @@ export default function GrievanceForm({ onSubmitGrievance, onTrackGrievance }) {
             <span>/</span>
             <span>Statutory Grievance Filing</span>
           </div>
-          
-          {/* Quick autofill helper for evaluators */}
-          <div className="flex items-center gap-2 text-xs text-institutional-500">
-            <span>Fill Sample:</span>
+        </div>
+
+        {/* Big Prominent 1-Click Demo Buttons for Easy Testing */}
+        <div className="p-3.5 mb-4 rounded-xl bg-amber-50 border border-amber-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-sm">
+          <div className="text-xs text-amber-900">
+            <strong className="block text-sm font-bold text-amber-950">⚡ Instant Demo Test (1-Click Fill)</strong>
+            <span>Doing a quick test? Click either button to automatically fill the entire form with realistic data:</span>
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
             <button
               type="button"
               onClick={() => loadTemplate('exam')}
-              className="px-2 py-0.5 rounded bg-institutional-100 hover:bg-institutional-200 text-institutional-800 text-[11px] font-medium border border-institutional-300"
+              className="px-3 py-1.5 rounded-lg bg-crest-navy text-white hover:bg-crest-blue text-xs font-bold transition-all shadow-sm"
             >
-              Examination Ticket
+              ⚡ Fill Exam Complaint
             </button>
             <button
               type="button"
               onClick={() => loadTemplate('fee')}
-              className="px-2 py-0.5 rounded bg-institutional-100 hover:bg-institutional-200 text-institutional-800 text-[11px] font-medium border border-institutional-300"
+              className="px-3 py-1.5 rounded-lg bg-crest-gold hover:bg-crest-goldLight text-crest-deep text-xs font-bold transition-all shadow-sm"
             >
-              Fee Refund Ticket
+              ⚡ Fill Fee Refund
             </button>
           </div>
         </div>

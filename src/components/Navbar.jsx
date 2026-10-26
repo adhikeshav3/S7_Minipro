@@ -1,7 +1,9 @@
-import React from 'react';
-import { Shield, Building, FileText, Search, BookOpen, BarChart3, Lock, CheckCircle2, PhoneCall, HelpCircle } from 'lucide-react';
+import React, { useState } from 'react';
+import { Building, FileText, Search, BookOpen, BarChart3, Lock, ChevronDown, PhoneCall } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab, pendingCount = 0 }) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-institutional-200 shadow-sm no-print">
       {/* Top Statutory / Accreditation Strip */}
@@ -12,32 +14,28 @@ export default function Navbar({ activeTab, setActiveTab, pendingCount = 0 }) {
               NAAC 'A++' ACCREDITED
             </span>
             <span className="text-institutional-300">
-              UGC Statutory Compliance • Section 12(B) Validated
+              UGC Section 12(B) Validated • Student Grievance Redressal Portal
             </span>
           </div>
           <div className="flex items-center gap-4 text-institutional-300">
             <span className="flex items-center gap-1.5 hover:text-white transition-colors">
               <PhoneCall className="w-3 h-3 text-crest-goldLight" />
-              Statutory Anti-Ragging Helpline: <strong className="text-white">1800-180-5522</strong>
-            </span>
-            <span className="hidden md:inline text-institutional-600">|</span>
-            <span className="hidden md:inline hover:text-white transition-colors">
-              Grievance Desk: <strong>grievance@apexuniv.edu.in</strong>
+              Helpline: <strong className="text-white">1800-180-5522</strong>
             </span>
           </div>
         </div>
       </div>
 
-      {/* Main University Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3.5 flex flex-col md:flex-row justify-between items-center gap-4">
+      {/* Main University Header: Streamlined, Clean & Limited Options */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex items-center justify-between gap-4">
+        
         {/* University Crest & Title */}
         <div 
           onClick={() => setActiveTab('home')}
-          className="flex items-center gap-3.5 cursor-pointer group"
-          title="Click to return to homepage"
+          className="flex items-center gap-3 cursor-pointer group"
+          title="Return to Home"
         >
-          {/* Institutional Crest SVG Emblem */}
-          <div className="w-12 h-12 rounded-lg bg-crest-navy text-crest-goldLight flex items-center justify-center shadow-seal border border-crest-gold/30 p-2 group-hover:border-crest-gold transition-colors">
+          <div className="w-11 h-11 rounded-lg bg-crest-navy text-crest-goldLight flex items-center justify-center shadow-seal border border-crest-gold/30 p-2 group-hover:border-crest-gold transition-colors shrink-0">
             <svg viewBox="0 0 48 48" fill="none" className="w-full h-full text-current">
               <circle cx="24" cy="24" r="21" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 2" />
               <path d="M24 7L10 14V17H38V14L24 7Z" fill="currentColor" opacity="0.9" />
@@ -52,128 +50,114 @@ export default function Navbar({ activeTab, setActiveTab, pendingCount = 0 }) {
 
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-lg sm:text-xl font-bold font-serif text-crest-navy tracking-tight group-hover:text-crest-blue transition-colors">
+              <h1 className="text-base sm:text-lg font-bold font-serif text-crest-navy tracking-tight group-hover:text-crest-blue transition-colors">
                 APEX UNIVERSITY
               </h1>
-              <span className="text-[10px] font-semibold tracking-wider uppercase px-1.5 py-0.5 rounded bg-institutional-100 text-institutional-700 border border-institutional-200">
-                ESTD. 1958
+              <span className="text-[10px] font-semibold px-1.5 py-0.2 rounded bg-institutional-100 text-institutional-700 border border-institutional-200">
+                Grievance Cell
               </span>
             </div>
-            <p className="text-xs text-institutional-600 font-medium tracking-normal">
-              Central Student Grievance Redressal & Resolution Directorate
+            <p className="text-[11px] text-institutional-500 font-medium">
+              Student Grievance & Resolution Portal
             </p>
           </div>
         </div>
 
-        {/* Primary Navigation Tabs with Clear Sub-Labels */}
-        <nav className="flex items-center flex-wrap justify-center gap-1 sm:gap-2">
+        {/* Streamlined Primary Navigation: Limited, Easy-to-Understand Choices */}
+        <nav className="flex items-center gap-1.5 sm:gap-2">
+          
+          {/* 1. Home */}
           <button
             onClick={() => setActiveTab('home')}
-            className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex flex-col items-center leading-tight ${
+            className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all ${
               activeTab === 'home'
                 ? 'bg-crest-navy text-white shadow-sm'
                 : 'text-institutional-700 hover:bg-institutional-100'
             }`}
           >
-            <span className="flex items-center gap-1.5 font-bold">
-              <Building className="w-4 h-4" />
-              Overview
-            </span>
-            <span className={`text-[10px] font-normal ${activeTab === 'home' ? 'text-institutional-300' : 'text-institutional-400'}`}>
-              Home
-            </span>
+            Home
           </button>
 
+          {/* 2. File Complaint (Main Primary Action) */}
           <button
             onClick={() => setActiveTab('submit')}
-            className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex flex-col items-center leading-tight ${
+            className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 ${
               activeTab === 'submit'
                 ? 'bg-crest-navy text-white shadow-sm'
-                : 'bg-crest-gold/15 text-institutional-900 border border-crest-gold/40 hover:bg-crest-gold/25'
+                : 'bg-crest-gold hover:bg-crest-goldLight text-crest-deep shadow-sm'
             }`}
           >
-            <span className="flex items-center gap-1.5 font-bold">
-              <FileText className="w-4 h-4 text-crest-goldDark" />
-              Lodge Grievance
-            </span>
-            <span className={`text-[10px] font-normal ${activeTab === 'submit' ? 'text-institutional-300' : 'text-institutional-600'}`}>
-              File Complaint
-            </span>
+            <FileText className="w-4 h-4" />
+            <span>File Complaint</span>
           </button>
 
+          {/* 3. Track Status */}
           <button
             onClick={() => setActiveTab('track')}
-            className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex flex-col items-center leading-tight ${
+            className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 ${
               activeTab === 'track'
                 ? 'bg-crest-navy text-white shadow-sm'
                 : 'text-institutional-700 hover:bg-institutional-100'
             }`}
           >
-            <span className="flex items-center gap-1.5 font-bold">
-              <Search className="w-4 h-4" />
-              Track Docket
-            </span>
-            <span className={`text-[10px] font-normal ${activeTab === 'track' ? 'text-institutional-300' : 'text-institutional-400'}`}>
-              Check Status
-            </span>
+            <Search className="w-4 h-4" />
+            <span>Track Status</span>
           </button>
 
-          <button
-            onClick={() => setActiveTab('policies')}
-            className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex flex-col items-center leading-tight ${
-              activeTab === 'policies'
-                ? 'bg-crest-navy text-white shadow-sm'
-                : 'text-institutional-700 hover:bg-institutional-100'
-            }`}
-          >
-            <span className="flex items-center gap-1.5 font-bold">
-              <BookOpen className="w-4 h-4" />
-              Charter & Bylaws
-            </span>
-            <span className={`text-[10px] font-normal ${activeTab === 'policies' ? 'text-institutional-300' : 'text-institutional-400'}`}>
-              Student Rights
-            </span>
-          </button>
+          {/* 4. More Options Dropdown (Rules & Transparency) - Keeps Header Uncluttered! */}
+          <div className="relative">
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className={`px-2.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-1 text-institutional-700 hover:bg-institutional-100 ${
+                activeTab === 'policies' || activeTab === 'analytics' ? 'bg-institutional-100 text-crest-navy font-bold' : ''
+              }`}
+            >
+              <span>More</span>
+              <ChevronDown className="w-3.5 h-3.5 text-institutional-500" />
+            </button>
 
-          <button
-            onClick={() => setActiveTab('analytics')}
-            className={`px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex flex-col items-center leading-tight ${
-              activeTab === 'analytics'
-                ? 'bg-crest-navy text-white shadow-sm'
-                : 'text-institutional-700 hover:bg-institutional-100'
-            }`}
-          >
-            <span className="flex items-center gap-1.5 font-bold">
-              <BarChart3 className="w-4 h-4" />
-              Transparency
-            </span>
-            <span className={`text-[10px] font-normal ${activeTab === 'analytics' ? 'text-institutional-300' : 'text-institutional-400'}`}>
-              Live Stats
-            </span>
-          </button>
+            {dropdownOpen && (
+              <div 
+                className="absolute right-0 mt-1 w-48 bg-white rounded-xl shadow-xl border border-institutional-200 py-1.5 z-50 animate-scaleIn"
+                onClick={() => setDropdownOpen(false)}
+              >
+                <button
+                  onClick={() => setActiveTab('policies')}
+                  className="w-full text-left px-4 py-2 text-xs font-semibold text-institutional-800 hover:bg-institutional-50 flex items-center gap-2"
+                >
+                  <BookOpen className="w-3.5 h-3.5 text-crest-goldDark" />
+                  University Rules & Rights
+                </button>
+                <button
+                  onClick={() => setActiveTab('analytics')}
+                  className="w-full text-left px-4 py-2 text-xs font-semibold text-institutional-800 hover:bg-institutional-50 flex items-center gap-2"
+                >
+                  <BarChart3 className="w-3.5 h-3.5 text-crest-navy" />
+                  Public Statistics
+                </button>
+              </div>
+            )}
+          </div>
 
-          {/* Committee / Officer Desk Toggle */}
+          {/* 5. Staff / Officer Login (Clearly separated on the right) */}
           <button
             onClick={() => setActiveTab('workbench')}
-            className={`ml-1 sm:ml-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex flex-col items-center leading-tight border ${
+            className={`ml-1 sm:ml-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 border ${
               activeTab === 'workbench'
                 ? 'bg-crest-maroon text-white border-crest-maroon shadow-sm'
-                : 'bg-institutional-50 text-institutional-800 border-institutional-300 hover:bg-institutional-200'
+                : 'bg-institutional-50 text-institutional-700 border-institutional-300 hover:bg-institutional-100'
             }`}
+            title="Restricted portal for University Deans & Examination Controllers"
           >
-            <span className="flex items-center gap-1.5 font-bold">
-              <Lock className="w-3.5 h-3.5 text-crest-maroon" />
-              Officer Desk
-              {pendingCount > 0 && (
-                <span className="ml-1 px-1.5 py-0.2 bg-red-600 text-white rounded-full text-[10px] font-bold">
-                  {pendingCount}
-                </span>
-              )}
-            </span>
-            <span className={`text-[10px] font-normal ${activeTab === 'workbench' ? 'text-institutional-200' : 'text-institutional-500'}`}>
-              For Deans / Admin
-            </span>
+            <Lock className="w-3.5 h-3.5 text-crest-maroon" />
+            <span>Staff Portal</span>
+            {pendingCount > 0 && (
+              <span className="px-1.5 py-0.2 bg-red-600 text-white rounded-full text-[10px] font-bold">
+                {pendingCount}
+              </span>
+            )}
           </button>
+
         </nav>
       </div>
     </header>
