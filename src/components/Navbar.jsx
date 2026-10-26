@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Building, FileText, Search, BookOpen, BarChart3, Lock, ChevronDown, PhoneCall } from 'lucide-react';
+import { Building, FileText, Search, BookOpen, BarChart3, Lock, ChevronDown, PhoneCall, LogOut, User } from 'lucide-react';
 
-export default function Navbar({ activeTab, setActiveTab, pendingCount = 0 }) {
+export default function Navbar({ activeTab, setActiveTab, pendingCount = 0, currentUser, onLogout }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
@@ -63,7 +63,7 @@ export default function Navbar({ activeTab, setActiveTab, pendingCount = 0 }) {
           </div>
         </div>
 
-        {/* Streamlined Primary Navigation: Limited, Easy-to-Understand Choices */}
+        {/* Streamlined Primary Navigation */}
         <nav className="flex items-center gap-1.5 sm:gap-2">
           
           {/* 1. Home */}
@@ -78,7 +78,7 @@ export default function Navbar({ activeTab, setActiveTab, pendingCount = 0 }) {
             Home
           </button>
 
-          {/* 2. File Complaint (Main Primary Action) */}
+          {/* 2. File Complaint */}
           <button
             onClick={() => setActiveTab('submit')}
             className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 ${
@@ -104,7 +104,7 @@ export default function Navbar({ activeTab, setActiveTab, pendingCount = 0 }) {
             <span>Track Status</span>
           </button>
 
-          {/* 4. More Options Dropdown (Rules & Transparency) - Keeps Header Uncluttered! */}
+          {/* 4. More Options Dropdown */}
           <div className="relative">
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -139,7 +139,7 @@ export default function Navbar({ activeTab, setActiveTab, pendingCount = 0 }) {
             )}
           </div>
 
-          {/* 5. Staff / Officer Login (Clearly separated on the right) */}
+          {/* 5. Staff Portal */}
           <button
             onClick={() => setActiveTab('workbench')}
             className={`ml-1 sm:ml-2 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 border ${
@@ -157,6 +157,27 @@ export default function Navbar({ activeTab, setActiveTab, pendingCount = 0 }) {
               </span>
             )}
           </button>
+
+          {/* Authenticated User Profile & Logout */}
+          {currentUser && (
+            <div className="ml-2 pl-2 border-l border-institutional-200 flex items-center gap-2">
+              <span 
+                className="hidden md:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-institutional-100 text-institutional-800 text-xs font-bold font-mono border border-institutional-200"
+                title={`Signed in as ${currentUser.name}`}
+              >
+                <User className="w-3.5 h-3.5 text-crest-navy" />
+                {currentUser.id}
+              </span>
+              <button
+                onClick={onLogout}
+                className="px-2.5 py-1.5 rounded-lg text-xs font-bold text-red-700 hover:bg-red-50 border border-red-200 transition-colors flex items-center gap-1"
+                title="Sign out of the portal"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Logout</span>
+              </button>
+            </div>
+          )}
 
         </nav>
       </div>

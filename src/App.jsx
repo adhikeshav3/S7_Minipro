@@ -9,6 +9,7 @@ import AnalyticsDashboard from './components/AnalyticsDashboard';
 import PolicyDirectory from './components/PolicyDirectory';
 import AppealModal from './components/AppealModal';
 import FeedbackModal from './components/FeedbackModal';
+import LoginPage from './components/LoginPage';
 import Footer from './components/Footer';
 
 import { 
@@ -27,6 +28,16 @@ export default function App() {
   const [grievances, setGrievances] = useState([]);
   const [activeTab, setActiveTab] = useState('home');
   const [selectedDocketId, setSelectedDocketId] = useState(null);
+
+  // Authentication State
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem('apex_user');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
 
   // Modals
   const [viewingOrderGrievance, setViewingOrderGrievance] = useState(null);
@@ -51,13 +62,46 @@ export default function App() {
     }, 4500);
   };
 
+  const handleLogin = (user) => {
+    setCurrentUser(user);
+    try {
+      localStorage.setItem('apex_user', JSON.stringify(user));
+    } catch (err) {
+      console.error(err);
+    }
+    showToast(
+      'Signed In Successfully',
+      `Welcome, ${user.name} (${user.id}).`
+    );
+    if (user.role === 'officer') {
+      setActiveTab('workbench');
+    } else {
+      setActiveTab('home');
+    }
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    try {
+      localStorage.removeItem('apex_user');
+    } catch (err) {
+      console.error(err);
+    }
+    setActiveTab('home');
+    showToast('Signed Out', 'You have been safely signed out of the portal.');
+  };
+
   const handleSearchDocket = (id) => {
     setSelectedDocketId(id);
     setActiveTab('track');
   };
 
   const handleCreateGrievance = (formData) => {
-    const newDoc = createNewGrievance(formData);
+    const newDoc = createNewGrievance({
+      ...formData,
+      studentName: currentUser?.name || formData.studentName,
+      rollNumber: currentUser?.id || formData.rollNumber
+    });
     setGrievances(getStoredGrievances());
     setSelectedDocketId(newDoc.id);
     showToast(
@@ -113,6 +157,11 @@ export default function App() {
     }
   };
 
+  // If user is not authenticated, display the Login Gateway!
+  if (!currentUser) {
+    return <LoginPage onLogin={handleLogin} />;
+  }
+
   const pendingActionCount = grievances.filter(g => g.status !== 'Resolved').length;
 
   return (
@@ -146,6 +195,8 @@ export default function App() {
         activeTab={activeTab} 
         setActiveTab={setActiveTab} 
         pendingCount={pendingActionCount}
+        currentUser={currentUser}
+        onLogout={handleLogout}
       />
 
       {/* Tab View Routing */}
@@ -159,7 +210,7 @@ export default function App() {
             />
 
             {/* Quick Grievance Inspection Strip */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-8 py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-8 py-10">
               <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
                 <div>
                   <h2 className="text-xl sm:text-2xl font-bold font-serif text-crest-navy">
