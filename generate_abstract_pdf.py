@@ -86,7 +86,7 @@ def generate_abstract_pdf():
     story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor('#CBD5E1'), spaceAfter=8, spaceBefore=0))
     story.append(Paragraph("ABSTRACT", heading_style))
 
-    # Narrative
+    # Narrative - Strictly NO bold tags inside paragraphs
     p1 = (
         "Higher educational institutions process thousands of multifaceted student grievances each academic year, "
         "encompassing examination grading disputes, fee debit anomalies, hostel welfare deficiencies, and campus safety concerns. "
@@ -99,18 +99,18 @@ def generate_abstract_pdf():
 
     p2 = (
         "To resolve these challenges, this project presents an autonomous multi-tier decision-support platform engineered using "
-        "<b>Agentic AI</b> and <b>Generative AI</b> workflows, adhering strictly to the statutory mandates of the <b>UGC (Redressal of "
-        "Grievances of Students) Regulations, 2023</b>. Unlike unpredictable generic conversational chatbots, the proposed system employs "
-        "specialized autonomous agents: a <i>Natural Language Triage Agent</i> that extracts semantic intent and maps petitions across "
+        "Agentic AI and Generative AI workflows, adhering strictly to the statutory mandates of the UGC (Redressal of "
+        "Grievances of Students) Regulations, 2023. Unlike unpredictable generic conversational chatbots, the proposed system employs "
+        "specialized autonomous agents: a Natural Language Triage Agent that extracts semantic intent and maps petitions across "
         "seven institutional jurisdictions (Examinations, Academics, Finance, Hostel Welfare, ICC/Anti-Ragging, Placements, and Administration); "
-        "an <i>Urgency Scoring Engine</i> that computes real-time threat indices and enforces priority-tiered Service Level Agreements (SLAs) "
-        "ranging from 24-hour critical turnaround to routine 10-day schedules; and a <i>Statutory Policy Verifier</i> that cross-references university "
+        "an Urgency Scoring Engine that computes real-time threat indices and enforces priority-tiered Service Level Agreements (SLAs) "
+        "ranging from 24-hour critical turnaround to routine 10-day schedules; and a Statutory Policy Verifier that cross-references university "
         "ordinances and legal bylaws."
     )
     story.append(Paragraph(p2, body_style))
 
     p3 = (
-        "The architecture features a <i>Generative Legal Order Drafting Subsystem</i> that assists adjudicating authorities by producing "
+        "The architecture features a Generative Legal Order Drafting Subsystem that assists adjudicating authorities by producing "
         "formal institutional resolution orders with enforceable remedial directives, eliminating administrative inertia. Petitioner "
         "confidentiality is safeguarded through a cryptographic identity-shielding protocol that prevents retaliatory academic bias. "
         "Furthermore, an automated watchdog mechanism monitors resolution deadlines and automatically escalates stalled cases to the "
@@ -126,7 +126,7 @@ def generate_abstract_pdf():
     story.append(Paragraph(p4, body_style))
 
     # Keywords
-    kw_text = "<b><i>Keywords:</i></b> Agentic AI, Generative AI, Student Grievance Redressal, Natural Language Processing (NLP), Decision-Support System, Statutory Policy Compliance."
+    kw_text = "<b>Keywords:</b> Agentic AI, Generative AI, Student Grievance Redressal, Natural Language Processing (NLP), Decision-Support System, Statutory Policy Compliance."
     story.append(HRFlowable(width="100%", thickness=0.8, color=colors.HexColor('#E2E8F0'), spaceAfter=6, spaceBefore=4))
     story.append(Paragraph(kw_text, keywords_style))
 
