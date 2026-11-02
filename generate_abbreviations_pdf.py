@@ -3,7 +3,7 @@ import sys
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, HRFlowable, Spacer
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, HRFlowable
 import pypdf
 
 def generate_abbreviations_pdf():
@@ -13,15 +13,15 @@ def generate_abbreviations_pdf():
     doc = SimpleDocTemplate(
         pdf_filename,
         pagesize=A4,
-        leftMargin=44,
-        rightMargin=44,
-        topMargin=36,
-        bottomMargin=36
+        leftMargin=48,
+        rightMargin=48,
+        topMargin=40,
+        bottomMargin=40
     )
 
     styles = getSampleStyleSheet()
 
-    # Strictly NO bold fonts - using pure Times-Roman throughout
+    # Strictly NO bold fonts - using pure Times-Roman font in Size 12
     title_style = ParagraphStyle(
         'DocTitle',
         parent=styles['Normal'],
@@ -30,15 +30,15 @@ def generate_abbreviations_pdf():
         leading=18,
         alignment=1, # Centered
         textColor=colors.HexColor('#0F172A'),
-        spaceAfter=10
+        spaceAfter=12
     )
 
     cell_style = ParagraphStyle(
         'CellText',
         parent=styles['Normal'],
         fontName='Times-Roman',
-        fontSize=11,
-        leading=14.5,
+        fontSize=12,
+        leading=16,
         textColor=colors.HexColor('#1E293B')
     )
 
@@ -46,8 +46,8 @@ def generate_abbreviations_pdf():
         'CellAbbr',
         parent=styles['Normal'],
         fontName='Times-Roman',
-        fontSize=11,
-        leading=14.5,
+        fontSize=12,
+        leading=16,
         textColor=colors.HexColor('#0F172A')
     )
 
@@ -55,62 +55,65 @@ def generate_abbreviations_pdf():
         'HeadStyle',
         parent=styles['Normal'],
         fontName='Times-Roman',
-        fontSize=11.5,
-        leading=15,
+        fontSize=12,
+        leading=16,
         textColor=colors.white
     )
 
     story = []
 
     story.append(Paragraph("LIST OF ABBREVIATIONS", title_style))
-    story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor('#0F172A'), spaceAfter=8, spaceBefore=0))
+    story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor('#0F172A'), spaceAfter=12, spaceBefore=0))
 
+    # Exactly 2 columns: Abbreviation and Full Expansion (No roles column)
     project_abbreviations = [
-        ("AI", "Artificial Intelligence", "Autonomous agentic reasoning and decision support"),
-        ("NLP", "Natural Language Processing", "Automated text intake and category triage engine"),
-        ("SLA", "Service Level Agreement", "Turnaround deadline timer (P1: 24h, P2: 48h, P3: 120h, P4: 240h)"),
-        ("UGC", "University Grants Commission", "Statutory Student Grievance Redressal Regulations, 2023"),
-        ("SGRC", "Student Grievance Redressal Committee", "Statutory tier-2 institutional standing redressal bench"),
-        ("SGRMS", "Student Grievance Redressal Management System", "Central administrative software platform title"),
-        ("ICC", "Internal Complaints Committee", "Statutory committee for harassment and anti-ragging petitions"),
-        ("COE", "Controller of Examinations", "Designated authority for hall tickets and marksheet anomalies"),
-        ("CFO", "Chief Finance Officer", "Authority presiding over fee refunds and reconciliation"),
-        ("DSW", "Dean of Student Welfare", "Hostel living standards and campus residential welfare"),
-        ("HOD", "Head of the Department", "Tier-1 departmental academic review sub-committee"),
-        ("PIN", "Personal Identification Number", "Confidential 4-digit docket tracking security pin"),
-        ("ORD", "University Ordinance", "Academic bylaws (e.g., ORD-14B: answer script evaluation)"),
-        ("DBT", "Direct Benefit Transfer", "Institutional refund mechanism for caution deposits"),
-        ("FIR", "First Information Report", "Statutory criminal escalation for severe ragging offenses"),
-        ("IPC", "Indian Penal Code", "Legal penal framework cited in university harassment bylaws"),
-        ("API", "Application Programming Interface", "Data exchange between storage service and UI modules"),
-        ("SPA", "Single Page Application", "Vite + React client-side portal architecture"),
-        ("UI / UX", "User Interface / User Experience", "Simplified accessible student grievance wizard design")
+        ("AI", "Artificial Intelligence"),
+        ("API", "Application Programming Interface"),
+        ("CFO", "Chief Finance Officer"),
+        ("COE", "Controller of Examinations"),
+        ("DBT", "Direct Benefit Transfer"),
+        ("DSW", "Dean of Student Welfare"),
+        ("ERP", "Enterprise Resource Planning"),
+        ("FIFO", "First-In-First-Out"),
+        ("FIR", "First Information Report"),
+        ("HOD", "Head of the Department"),
+        ("ICC", "Internal Complaints Committee"),
+        ("IPC", "Indian Penal Code"),
+        ("ISO", "International Organization for Standardization"),
+        ("NAAC", "National Assessment and Accreditation Council"),
+        ("NLP", "Natural Language Processing"),
+        ("ORD", "University Ordinance"),
+        ("PIN", "Personal Identification Number"),
+        ("SGRC", "Student Grievance Redressal Committee"),
+        ("SGRMS", "Student Grievance Redressal Management System"),
+        ("SLA", "Service Level Agreement"),
+        ("SPA", "Single Page Application"),
+        ("UGC", "University Grants Commission"),
+        ("UI / UX", "User Interface / User Experience")
     ]
 
     table_data = [
         [
             Paragraph("Abbreviation", header_style),
-            Paragraph("Full Expansion", header_style),
-            Paragraph("Role / Context in this Project", header_style)
+            Paragraph("Full Expansion", header_style)
         ]
     ]
 
-    for abbr, desc, role in project_abbreviations:
+    for abbr, desc in project_abbreviations:
         table_data.append([
             Paragraph(abbr, cell_abbr_style),
-            Paragraph(desc, cell_style),
-            Paragraph(role, cell_style)
+            Paragraph(desc, cell_style)
         ])
 
-    table = Table(table_data, colWidths=[80, 205, 222])
+    table = Table(table_data, colWidths=[150, 349])
     table.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#0F172A')),
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ('TOPPADDING', (0, 0), (-1, -1), 3),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 3),
-        ('LEFTPADDING', (0, 0), (-1, -1), 6),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 6),
+        ('TOPPADDING', (0, 0), (-1, -1), 3.5),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 3.5),
+        ('LEFTPADDING', (0, 0), (-1, -1), 10),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 10),
         ('GRID', (0, 0), (-1, -1), 0.5, colors.HexColor('#CBD5E1')),
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#F8FAFC')])
     ]))
