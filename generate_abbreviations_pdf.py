@@ -21,61 +21,52 @@ def generate_abbreviations_pdf():
 
     styles = getSampleStyleSheet()
 
+    # Strictly NO bold fonts - using pure Times-Roman throughout
     title_style = ParagraphStyle(
         'DocTitle',
         parent=styles['Normal'],
-        fontName='Helvetica-Bold',
+        fontName='Times-Roman',
         fontSize=14,
         leading=18,
         alignment=1, # Centered
         textColor=colors.HexColor('#0F172A'),
-        spaceAfter=8
+        spaceAfter=10
     )
 
-    cell_abbr_style = ParagraphStyle(
-        'AbbrCell',
-        parent=styles['Normal'],
-        fontName='Times-Bold',
-        fontSize=10.5,
-        leading=14,
-        textColor=colors.HexColor('#0F172A')
-    )
-
-    cell_desc_style = ParagraphStyle(
-        'DescCell',
+    cell_style = ParagraphStyle(
+        'CellText',
         parent=styles['Normal'],
         fontName='Times-Roman',
-        fontSize=10.5,
-        leading=14,
+        fontSize=11,
+        leading=14.5,
         textColor=colors.HexColor('#1E293B')
     )
 
-    cell_role_style = ParagraphStyle(
-        'RoleCell',
+    cell_abbr_style = ParagraphStyle(
+        'CellAbbr',
         parent=styles['Normal'],
         fontName='Times-Roman',
-        fontSize=9.5,
-        leading=13,
-        textColor=colors.HexColor('#475569')
+        fontSize=11,
+        leading=14.5,
+        textColor=colors.HexColor('#0F172A')
     )
 
     header_style = ParagraphStyle(
         'HeadStyle',
         parent=styles['Normal'],
-        fontName='Helvetica-Bold',
-        fontSize=10.5,
-        leading=14,
+        fontName='Times-Roman',
+        fontSize=11.5,
+        leading=15,
         textColor=colors.white
     )
 
     story = []
 
-    story.append(Paragraph("LIST OF ABBREVIATIONS USED IN THIS PROJECT", title_style))
+    story.append(Paragraph("LIST OF ABBREVIATIONS", title_style))
     story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor('#0F172A'), spaceAfter=8, spaceBefore=0))
 
-    # All abbreviations strictly from this project's code & modules
     project_abbreviations = [
-        ("AI", "Artificial Intelligence", "Autonomous agentic reasoning & decision support"),
+        ("AI", "Artificial Intelligence", "Autonomous agentic reasoning and decision support"),
         ("NLP", "Natural Language Processing", "Automated text intake and category triage engine"),
         ("SLA", "Service Level Agreement", "Turnaround deadline timer (P1: 24h, P2: 48h, P3: 120h, P4: 240h)"),
         ("UGC", "University Grants Commission", "Statutory Student Grievance Redressal Regulations, 2023"),
@@ -107,8 +98,8 @@ def generate_abbreviations_pdf():
     for abbr, desc, role in project_abbreviations:
         table_data.append([
             Paragraph(abbr, cell_abbr_style),
-            Paragraph(desc, cell_desc_style),
-            Paragraph(role, cell_role_style)
+            Paragraph(desc, cell_style),
+            Paragraph(role, cell_style)
         ])
 
     table = Table(table_data, colWidths=[80, 205, 222])
